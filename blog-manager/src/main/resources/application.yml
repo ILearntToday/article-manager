@@ -1,0 +1,20 @@
+spring:
+  profiles:
+    active: "local"
+  application :
+    name: "BlogManagerService"
+---
+spring:
+  profiles: local
+filter:
+  elasticsearch:
+    name: "ilearnttoday"
+    type: "blogs-filter"
+elasticsearch:
+  host1:  "localhost"
+  port1:  "9200"
+  host2:
+  port2:
+  host3:
+  port3:
+  scheme: "http"
