@@ -1,25 +1,25 @@
 package com.iLearntToday.blogManagerService.blogmanager.entity;
 
-public class BlogVO
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties (ignoreUnknown = true) public class BlogVO
 {
-    String parentId;
+
+
+    String parent_Id;
     long timestamp;
     String blogTitle;
     String shortDescription;
     String fullDescription;
     String userId;
-    String numberOfLikes;
+    int numberOfLikes;
 
 
-    public BlogVO()
+    public BlogVO( String parent_Id, long timestamp, String blogTitle, String shortDescription, String fullDescription,
+        String userId, int numberOfLikes )
     {
-    }
-
-
-    public BlogVO( String parentId, long timestamp, String blogTitle, String shortDescription, String fullDescription,
-        String userId, String numberOfLikes )
-    {
-        this.parentId = parentId;
+        this.parent_Id = parent_Id;
         this.timestamp = timestamp;
         this.blogTitle = blogTitle;
         this.shortDescription = shortDescription;
@@ -29,15 +29,20 @@ public class BlogVO
     }
 
 
-    public String getParentId()
+    public BlogVO()
     {
-        return parentId;
     }
 
 
-    public void setParentId( String parentId )
+    public String getParent_Id()
     {
-        this.parentId = parentId;
+        return parent_Id;
+    }
+
+
+    public void setParent_Id( String parent_Id )
+    {
+        this.parent_Id = parent_Id;
     }
 
 
@@ -101,13 +106,13 @@ public class BlogVO
     }
 
 
-    public String getNumberOfLikes()
+    public int getNumberOfLikes()
     {
         return numberOfLikes;
     }
 
 
-    public void setNumberOfLikes( String numberOfLikes )
+    public void setNumberOfLikes( int numberOfLikes )
     {
         this.numberOfLikes = numberOfLikes;
     }
