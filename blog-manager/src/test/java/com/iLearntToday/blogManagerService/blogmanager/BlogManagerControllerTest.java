@@ -22,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
     @Test public void testGetCall() throws Exception
     {
-        this.mockMvc.perform( get( "http://localhost:8080/blogdetails/v1/getall/1" ).accept( MediaType.ALL ) )
+        this.mockMvc.perform( get( "http://localhost:8080/blogdetails/v1/getblogs/1" ).accept( MediaType.ALL ) )
             .andExpect( status().is( 200 ) );
     }
 
