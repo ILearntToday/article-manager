@@ -116,4 +116,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     {
         this.numberOfLikes = numberOfLikes;
     }
+
+
+    @Override public String toString()
+    {
+        return "BlogVO{" + "parent_Id='" + parent_Id + '\'' + ", timestamp=" + timestamp + ", blogTitle='" + blogTitle + '\''
+            + ", shortDescription='" + shortDescription + '\'' + ", fullDescription='" + fullDescription + '\'' + ", userId='"
+            + userId + '\'' + ", numberOfLikes=" + numberOfLikes + '}';
+    }
 }

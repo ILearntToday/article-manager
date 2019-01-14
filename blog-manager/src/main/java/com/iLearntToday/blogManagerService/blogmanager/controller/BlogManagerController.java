@@ -2,6 +2,8 @@ package com.iLearntToday.blogManagerService.blogmanager.controller;
 
 
 import com.iLearntToday.blogManagerService.blogmanager.service.BlogManagementService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,14 +17,16 @@ import java.io.IOException;
 
 @RestController () @RequestMapping (value = "blogdetails/v1") public class BlogManagerController
 {
+
+    private static final Logger LOG = LoggerFactory.getLogger( BlogManagerController.class );
     @Autowired BlogManagementService blogManagementService;
 
 
     @RequestMapping (value = "/getblogs/{parentId}", method = RequestMethod.GET) public ResponseEntity<?> getAllBlogsOfId(
-        @PathVariable String parentId )
-        throws IOException
+        @PathVariable String parentId ) throws IOException
     {
-        return new ResponseEntity<>( blogManagementService.getBlogsById(parentId), HttpStatus.OK );
+        LOG.info("Request submitted to query with parentId {}",parentId);
+        return new ResponseEntity<>( blogManagementService.getBlogsById( parentId ), HttpStatus.OK );
     }
 
 }

@@ -9,6 +9,7 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.pipeline.movavg.models.EwmaModel;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,7 @@ import java.util.stream.Collectors;
 
     public List<BlogVO> searchBlogById( String blogParentId )
     {
+        LOG.info( "Creating query to hit elastic search" );
         List<BlogVO> blogsfetched = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest( indexNameConst );
         searchRequest.types( indexType );
@@ -52,11 +54,13 @@ import java.util.stream.Collectors;
         LOG.debug( "{}", searchSourceBuilder );
         try {
             SearchResponse searchResponse = restHighLevelClient.search( searchRequest );
+            LOG.info( "Query to elastic search done successfully, number of entries fetched {} ",searchResponse.getHits().totalHits );
             blogsfetched = convertSearchResponseToBlogObject( searchResponse );
         } catch ( IOException e ) {
-            // throw new IOException( "Elastic Search IO Exception Occurred" );
+
+            LOG.info( "Could not connect to elastic search {}",e );
         } catch ( Exception e ) {
-            System.out.println( e );
+            LOG.info( "Some error occured while doing elastic search operations " );
         }
         return blogsfetched;
     }
@@ -70,11 +74,12 @@ import java.util.stream.Collectors;
                 try {
                     return objectMappper.readValue( x.getSourceAsString(), BlogVO.class );
                 } catch ( IOException e ) {
-                    e.printStackTrace();
+                    LOG.info( "Error while converting Json String to object {}",e );
                     return null;
                 }
             } ).collect( Collectors.toList() );
         }
+        LOG.debug( "Entries fetched from elastic search {}",blogVOS );
         return blogVOS;
 
 
