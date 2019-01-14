@@ -1,9 +1,9 @@
-package com.iLearntToday.blogManagerService.blogmanager.entity;
+package com.iLearntToday.articleManagentService.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
-@JsonIgnoreProperties (ignoreUnknown = true) public class BlogVO
+@JsonIgnoreProperties (ignoreUnknown = true) public class ArticleVO
 {
 
 
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     int numberOfLikes;
 
 
-    public BlogVO( String parent_Id, long timestamp, String blogTitle, String shortDescription, String fullDescription,
+    public ArticleVO( String parent_Id, long timestamp, String blogTitle, String shortDescription, String fullDescription,
         String userId, int numberOfLikes )
     {
         this.parent_Id = parent_Id;
@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
     }
 
 
-    public BlogVO()
+    public ArticleVO()
     {
     }
 
@@ -120,7 +120,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
     @Override public String toString()
     {
-        return "BlogVO{" + "parent_Id='" + parent_Id + '\'' + ", timestamp=" + timestamp + ", blogTitle='" + blogTitle + '\''
+        return "ArticleVO{" + "parent_Id='" + parent_Id + '\'' + ", timestamp=" + timestamp + ", blogTitle='" + blogTitle + '\''
             + ", shortDescription='" + shortDescription + '\'' + ", fullDescription='" + fullDescription + '\'' + ", userId='"
             + userId + '\'' + ", numberOfLikes=" + numberOfLikes + '}';
     }

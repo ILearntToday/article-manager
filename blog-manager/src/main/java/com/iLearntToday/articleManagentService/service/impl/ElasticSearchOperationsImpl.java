@@ -1,15 +1,14 @@
-package com.iLearntToday.blogManagerService.blogmanager.service.impl;
+package com.iLearntToday.articleManagentService.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iLearntToday.blogManagerService.blogmanager.entity.BlogVO;
-import com.iLearntToday.blogManagerService.blogmanager.service.ElasticSearchOperations;
+import com.iLearntToday.articleManagentService.entity.ArticleVO;
+import com.iLearntToday.articleManagentService.service.ElasticSearchOperations;
 import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.Operator;
 import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.search.aggregations.pipeline.movavg.models.EwmaModel;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +32,10 @@ import java.util.stream.Collectors;
     @Value ("${filter.elasticsearch.type}") private String indexType;
 
 
-    public List<BlogVO> searchBlogById( String blogParentId )
+    public List<ArticleVO> searchBlogById( String blogParentId )
     {
         LOG.info( "Creating query to hit elastic search" );
-        List<BlogVO> blogsfetched = new ArrayList<>();
+        List<ArticleVO> blogsfetched = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest( indexNameConst );
         searchRequest.types( indexType );
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -66,21 +65,21 @@ import java.util.stream.Collectors;
     }
 
 
-    List<BlogVO> convertSearchResponseToBlogObject( SearchResponse searchResponse ) throws IOException
+    List<ArticleVO> convertSearchResponseToBlogObject( SearchResponse searchResponse ) throws IOException
     {
-        List<BlogVO> blogVOS = null;
+        List<ArticleVO> articleVOS = null;
         if ( searchResponse.getHits().totalHits > 0 ) {
-            blogVOS = Arrays.stream( searchResponse.getHits().getHits() ).map( x -> {
+            articleVOS = Arrays.stream( searchResponse.getHits().getHits() ).map( x -> {
                 try {
-                    return objectMappper.readValue( x.getSourceAsString(), BlogVO.class );
+                    return objectMappper.readValue( x.getSourceAsString(), ArticleVO.class );
                 } catch ( IOException e ) {
                     LOG.info( "Error while converting Json String to object {}",e );
                     return null;
                 }
             } ).collect( Collectors.toList() );
         }
-        LOG.debug( "Entries fetched from elastic search {}",blogVOS );
-        return blogVOS;
+        LOG.debug( "Entries fetched from elastic search {}", articleVOS );
+        return articleVOS;
 
 
     }
