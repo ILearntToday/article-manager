@@ -1,6 +1,5 @@
 package com.iLearntToday.articleManagentService.controller;
 
-
 import com.iLearntToday.articleManagentService.service.ArticleManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,21 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
+@RestController()
+@RequestMapping(value = "api/v1/")
+public class ArticleController {
+    private static final Logger LOG = LoggerFactory.getLogger(ArticleController.class);
+    @Autowired
+    private ArticleManagementService articleManagementService;
 
-@RestController () @RequestMapping (value = "api/v1/") public class ArticleController
-{
-
-    private static final Logger LOG = LoggerFactory.getLogger( ArticleController.class );
-    @Autowired private ArticleManagementService articleManagementService;
-
-
-    @RequestMapping (value = "/articles/{parent_id}", method = RequestMethod.GET) public ResponseEntity<?> getAllBlogsOfId(
-        @PathVariable("parent_id") String parentId ) throws IOException
-    {
-        LOG.info("Request submitted to fetch article with parentId {}",parentId);
-        return new ResponseEntity<>( articleManagementService.getBlogsById( parentId ), HttpStatus.OK );
+    @RequestMapping(value = "/articles/{parent_id}", method = RequestMethod.GET)
+    public ResponseEntity<?> getAllBlogsOfId(
+            @PathVariable("parent_id") String parentId) throws IOException {
+        LOG.info("Request submitted to fetch article with parentId {}", parentId);
+        return new ResponseEntity<>(articleManagementService.getBlogsById(parentId), HttpStatus.OK);
     }
-
-
-
 }
