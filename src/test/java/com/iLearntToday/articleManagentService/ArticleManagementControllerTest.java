@@ -1,6 +1,5 @@
 package com.iLearntToday.articleManagentService;
 
-
 import com.iLearntToday.articleManagentService.controller.ArticleController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,18 +12,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+@RunWith(SpringRunner.class)
+@WebMvcTest(value = ArticleController.class, secure = false)
+public class ArticleManagementControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
 
-@RunWith (SpringRunner.class) @WebMvcTest (value = ArticleController.class, secure = false) public class ArticleManagementControllerTest
-{
-
-    @Autowired private MockMvc mockMvc;
-
-
-    @Test public void testGetCall() throws Exception
-    {
-        this.mockMvc.perform( get( "http://localhost:8080/blogdetails/v1/getblogs/1" ).accept( MediaType.ALL ) )
-            .andExpect( status().is( 200 ) );
+    @Test
+    public void testGetCall() throws Exception {
+        this.mockMvc.perform(get("http://localhost:8080/blogdetails/v1/getblogs/1").accept(MediaType.ALL))
+                .andExpect(status().is(200));
     }
-
-
 }
