@@ -1,2 +1,2 @@
-# BlogManagementService
-This service handles the Blog basic operations. 
+# Article Manager
+This service handles the articles basic operations.

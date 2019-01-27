@@ -7,17 +7,17 @@ public class ArticleVO {
 
     private String parent_Id;
     private long timestamp;
-    private String blogTitle;
+    private String title;
     private String shortDescription;
     private String fullDescription;
     private String userId;
     private int numberOfLikes;
 
-    public ArticleVO(String parent_Id, long timestamp, String blogTitle, String shortDescription, String fullDescription,
+    public ArticleVO(String parent_Id, long timestamp, String title, String shortDescription, String fullDescription,
                      String userId, int numberOfLikes) {
         this.parent_Id = parent_Id;
         this.timestamp = timestamp;
-        this.blogTitle = blogTitle;
+        this.title = title;
         this.shortDescription = shortDescription;
         this.fullDescription = fullDescription;
         this.userId = userId;
@@ -47,13 +47,13 @@ public class ArticleVO {
     }
 
 
-    public String getBlogTitle() {
-        return blogTitle;
+    public String getTitle() {
+        return title;
     }
 
 
-    public void setBlogTitle(String blogTitle) {
-        this.blogTitle = blogTitle;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 
@@ -98,7 +98,7 @@ public class ArticleVO {
 
     @Override
     public String toString() {
-        return "ArticleVO{" + "parent_Id='" + parent_Id + '\'' + ", timestamp=" + timestamp + ", blogTitle='" + blogTitle + '\''
+        return "ArticleVO{" + "parent_Id='" + parent_Id + '\'' + ", timestamp=" + timestamp + ", title='" + title + '\''
                 + ", shortDescription='" + shortDescription + '\'' + ", fullDescription='" + fullDescription + '\'' + ", userId='"
                 + userId + '\'' + ", numberOfLikes=" + numberOfLikes + '}';
     }
