@@ -7,7 +7,7 @@
         </encoder>
     </appender>
     <appender name="TIME_BASED_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${user.home}/iLearntToday/logs/blogService.log</file>
+        <file>${user.home}/iLearntToday/logs/article-manager.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- daily rollover -->
             <fileNamePattern>${user.home}/iLearntToday/logs/retry.%d{yyyy-MM-dd}.log

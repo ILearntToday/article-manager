@@ -5,5 +5,5 @@ import com.iLearntToday.articleManagentService.entity.ArticleVO;
 import java.util.List;
 
 public interface ElasticSearchOperations {
-    List<ArticleVO> searchBlogById(String parentId) throws Exception;
+    List<ArticleVO> getArticlesByParentId(String parentId) throws Exception;
 }

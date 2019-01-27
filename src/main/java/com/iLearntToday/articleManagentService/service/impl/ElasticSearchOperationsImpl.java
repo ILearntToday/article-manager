@@ -34,9 +34,9 @@ public class ElasticSearchOperationsImpl implements ElasticSearchOperations {
     @Value("${filter.elasticsearch.type}")
     private String indexType;
 
-    public List<ArticleVO> searchBlogById(String blogParentId) {
+    public List<ArticleVO> getArticlesByParentId(String parentId) {
         LOG.info("Creating query to hit elastic search");
-        List<ArticleVO> blogsfetched = new ArrayList<>();
+        List<ArticleVO> articles = new ArrayList<>();
         SearchRequest searchRequest = new SearchRequest(indexNameConst);
         searchRequest.types(indexType);
         SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
@@ -44,7 +44,7 @@ public class ElasticSearchOperationsImpl implements ElasticSearchOperations {
         BoolQueryBuilder query = new BoolQueryBuilder();
 
         BoolQueryBuilder internalBoolQuery = new BoolQueryBuilder();
-        internalBoolQuery.should(QueryBuilders.matchQuery("parent_Id", blogParentId).operator(Operator.AND));
+        internalBoolQuery.should(QueryBuilders.matchQuery("parent_Id", parentId).operator(Operator.AND));
         query.filter(internalBoolQuery);
 
         searchSourceBuilder.query(query);
@@ -55,17 +55,17 @@ public class ElasticSearchOperationsImpl implements ElasticSearchOperations {
         try {
             SearchResponse searchResponse = restHighLevelClient.search(searchRequest);
             LOG.info("Query to elastic search done successfully, number of entries fetched {} ", searchResponse.getHits().totalHits);
-            blogsfetched = convertSearchResponseToBlogObject(searchResponse);
+            articles = toArticles(searchResponse);
         } catch (IOException e) {
 
             LOG.info("Could not connect to elastic search {}", e);
         } catch (Exception e) {
             LOG.info("Some error occured while doing elastic search operations ");
         }
-        return blogsfetched;
+        return articles;
     }
 
-    List<ArticleVO> convertSearchResponseToBlogObject(SearchResponse searchResponse) throws IOException {
+    private List<ArticleVO> toArticles(SearchResponse searchResponse) throws IOException {
         List<ArticleVO> articleVOS = null;
         if (searchResponse.getHits().totalHits > 0) {
             articleVOS = Arrays.stream(searchResponse.getHits().getHits()).map(x -> {

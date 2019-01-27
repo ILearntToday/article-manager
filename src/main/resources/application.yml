@@ -2,14 +2,14 @@ spring:
   profiles:
     active: "local"
   application:
-    name: "BlogManagerService"
+    name: "ArticleManager"
 ---
 spring:
   profiles: local
 filter:
   elasticsearch:
     name: "ilearnttoday"
-    type: "blogs-filter"
+    type: "article-filter"
 elasticsearch:
   host1:  "localhost"
   port1:  "9200"

@@ -6,5 +6,5 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ArticleManagementService {
-    List<ArticleVO> getBlogsById(String id) throws IOException;
+    List<ArticleVO> getArticlesByParentId(String parent_id) throws IOException;
 }

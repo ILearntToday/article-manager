@@ -21,9 +21,9 @@ public class ArticleController {
     private ArticleManagementService articleManagementService;
 
     @RequestMapping(value = "/articles/{parent_id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getAllBlogsOfId(
+    public ResponseEntity<?> getArticlesByParentId(
             @PathVariable("parent_id") String parentId) throws IOException {
         LOG.info("Request submitted to fetch article with parentId {}", parentId);
-        return new ResponseEntity<>(articleManagementService.getBlogsById(parentId), HttpStatus.OK);
+        return new ResponseEntity<>(articleManagementService.getArticlesByParentId(parentId), HttpStatus.OK);
     }
 }

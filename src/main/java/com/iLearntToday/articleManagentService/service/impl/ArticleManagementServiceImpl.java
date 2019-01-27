@@ -16,8 +16,8 @@ public class ArticleManagementServiceImpl implements ArticleManagementService {
     private ElasticSearchOperationsImpl elasticSearchOperations;
 
     @Override
-    public List<ArticleVO> getBlogsById(String id) {
-        LOG.info("Query to get List of blogs from elastic search");
-        return elasticSearchOperations.searchBlogById(id);
+    public List<ArticleVO> getArticlesByParentId(String id) {
+        LOG.info("Query to get list of articles from elastic search");
+        return elasticSearchOperations.getArticlesByParentId(id);
     }
 }
