@@ -1,10 +1,11 @@
 package com.iLearntToday.articleManagentService.service;
 
-import com.iLearntToday.articleManagentService.entity.ArticleVO;
+import com.iLearntToday.articleManagentService.entity.Article;
+import com.iLearntToday.articleManagentService.entity.ResponseStatus;
+import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 public interface ArticleManagementService {
-    List<ArticleVO> getArticlesByParentId(String parent_id) throws IOException;
+    public ResponseStatus saveAllArticle(List<Article> articles);
 }

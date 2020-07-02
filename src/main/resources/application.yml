@@ -1,20 +1,20 @@
-spring:
-  profiles:
-    active: "local"
-  application:
-    name: "ArticleManager"
----
-spring:
-  profiles: local
-filter:
-  elasticsearch:
-    name: "ilearnttoday"
-    type: "article-filter"
-elasticsearch:
-  host1:  "localhost"
-  port1:  "9200"
-  host2:
-  port2:
-  host3:
-  port3:
-  scheme: "http"
+#spring:
+#  profiles:
+#    active: "local"
+#  application:
+#    name: "ArticleManager"
+#---
+#spring:
+#  profiles: local
+#filter:
+#  elasticsearch:
+#    name: "ilearnttoday"
+#    type: "article-filter"
+#elasticsearch:
+#  host1:  "localhost"
+#  port1:  "9200"
+#  host2:
+#  port2:
+#  host3:
+#  port3:
+#  scheme: "http"
