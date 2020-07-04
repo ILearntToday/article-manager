@@ -23,6 +23,16 @@ public class ArticleManagementServiceImpl implements ArticleManagementService {
          return new ResponseStatus(200,"Article saved Successfully!");
     }
 
+    @Override
+    public List<Article> getArticlesByUserName(String userId) {
+        List<Article> result =  articleRepository.findByUserId(userId);
+        LOG.debug("article fetched ",result);
+        return result;
+//        return null;
+    }
+
+
+
 
 
 }

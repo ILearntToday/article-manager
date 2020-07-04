@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ArticleManagementService {
     public ResponseStatus saveAllArticle(List<Article> articles);
+
+    public List<Article> getArticlesByUserName(String userName);
 }
