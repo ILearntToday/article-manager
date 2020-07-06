@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController()
@@ -20,15 +19,21 @@ public class ArticleController {
     @Autowired
     private ArticleManagementService articleManagementService;
 
-    @RequestMapping(value="/saveAll",method = RequestMethod.POST)
+
+    @RequestMapping(value="articles/save",method = RequestMethod.POST)
     public ResponseEntity<ResponseStatus> saveAllArticle(@RequestBody List<Article> articles){
         return new ResponseEntity<ResponseStatus>(articleManagementService.saveAllArticle(articles),HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/articles/{parent_id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getArticlesByParentId(
-            @PathVariable("parent_id") String parentId) throws IOException {
-        LOG.info("Request submitted to fetch article with parentId {}", parentId);
-        return new ResponseEntity<>( HttpStatus.OK);
+
+    @RequestMapping(value ="/articles",method = RequestMethod.GET)
+    public ResponseEntity<?> getArticlesByUserId(@RequestParam("userid") String userId){
+        LOG.debug("request to fetch article by user id  "+userId);
+        return new ResponseEntity<>(articleManagementService.getArticlesByUserName(userId),HttpStatus.OK);
+
+    }
+    @RequestMapping(value="/test",method = RequestMethod.GET)
+    public String testAPi(){
+        return "Hello From Article service";
     }
 }

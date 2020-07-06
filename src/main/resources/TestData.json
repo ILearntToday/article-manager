@@ -1,0 +1,22 @@
+[
+  {
+    "id": "abcd",
+    "parent_Id": "xyz",
+    "timestamp": 123,
+    "title": "Data Structure",
+    "shortDescription": "Hello world",
+    "fullDescription": "this is full descritpion",
+    "userId": "dhiraj",
+    "numberOfLikes": 12
+  },
+  {
+    "id": "abcd1232",
+    "parent_Id": "xyz",
+    "timestamp": 123,
+    "title": "Machine Learning",
+    "shortDescription": "this is the world of AI",
+    "fullDescription": "this is full descritpion",
+    "userId": "dhiraj",
+    "numberOfLikes": 1223
+  }
+]
