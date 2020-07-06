@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.util.List;
+
 @Document(indexName="articles",shards=2)
 @Data
 @AllArgsConstructor
@@ -21,6 +23,7 @@ public class Article  {
     private String fullDescription;
     private String userId;
     private int numberOfLikes;
+    List<String> topicsTags;
 
 
 }

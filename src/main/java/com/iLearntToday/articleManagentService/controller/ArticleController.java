@@ -32,4 +32,8 @@ public class ArticleController {
         return new ResponseEntity<>(articleManagementService.getArticlesByUserName(userId),HttpStatus.OK);
 
     }
+    @RequestMapping(value="/test",method = RequestMethod.GET)
+    public String testAPi(){
+        return "Hello From Article service";
+    }
 }
