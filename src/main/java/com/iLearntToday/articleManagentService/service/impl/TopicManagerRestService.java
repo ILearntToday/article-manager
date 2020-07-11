@@ -3,6 +3,8 @@ package com.iLearntToday.articleManagentService.service.impl;
 import com.iLearntToday.articleManagentService.controller.ArticleController;
 import com.iLearntToday.articleManagentService.entity.ResponseVO;
 import com.iLearntToday.articleManagentService.entity.Topic;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.ribbon.proxy.annotation.Hystrix;
 import io.swagger.models.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ public class TopicManagerRestService {
     @Autowired
     RestTemplate restTemplate;
     private static final Logger LOG = LoggerFactory.getLogger(TopicManagerRestService.class);
+    @HystrixCommand(fallbackMethod = "saveTopicFallback")
     public boolean saveTopics(List<String> topictags) {
         List<Topic> topicList = new ArrayList<>();
         for (String topicName : topictags) {
@@ -41,6 +44,8 @@ public class TopicManagerRestService {
         }
         return false;
     }
-
-
+    public boolean saveTopicFallback(List<String> topictags) {
+        LOG.error("Inside topic save fallback method");
+        return false;
+    }
 }
