@@ -26,4 +26,11 @@ public class Article  {
     List<String> topicsTags;
 
 
+    public List<String> getTopicsTags() {
+        return topicsTags;
+    }
+
+    public void setTopicsTags(List<String> topicsTags) {
+        this.topicsTags = topicsTags;
+    }
 }

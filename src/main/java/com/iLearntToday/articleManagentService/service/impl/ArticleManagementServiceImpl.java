@@ -4,6 +4,7 @@ import com.iLearntToday.articleManagentService.entity.Article;
 import com.iLearntToday.articleManagentService.entity.ResponseStatus;
 import com.iLearntToday.articleManagentService.repository.ArticleRepository;
 import com.iLearntToday.articleManagentService.service.ArticleManagementService;
+import org.elasticsearch.index.query.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,26 +14,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ArticleManagementServiceImpl implements ArticleManagementService {
+public class ArticleManagementServiceImpl  implements ArticleManagementService {
     private static final Logger LOG = LoggerFactory.getLogger(ArticleManagementService.class);
     @Autowired
     ArticleRepository articleRepository;
+    @Autowired
+    TopicManagerRestService topicManagerRestService;
+
     @Override
-    public ResponseStatus saveAllArticle(List<Article > articles){
-         articleRepository.saveAll(articles);
-         return new ResponseStatus(200,"Article saved Successfully!");
+    public ResponseStatus saveAllArticle(List<Article> articles) {
+        articleRepository.saveAll(articles);
+
+        return new ResponseStatus(200, "Article saved Successfully!");
     }
 
     @Override
     public List<Article> getArticlesByUserName(String userId) {
-        List<Article> result =  articleRepository.findByUserId(userId);
-        LOG.debug("article fetched ",result);
+        List<Article> result = articleRepository.findByUserId(userId);
+        LOG.debug("article fetched ", result);
         return result;
 //        return null;
     }
 
+    @Override
+    public List<Article> getArticlesByTopicTags(List<String> topics) {
 
+        List<Article> result = new ArrayList<>();
+        BoolQueryBuilder qb1 = new BoolQueryBuilder();
 
+        for (String topic : topics) {
+            result.addAll(articleRepository.findByTopicsTags(topic));
+        }
+        return result;
+    }
 
-
+    @Override
+    public String saveArticle(Article articles) {
+        if(topicManagerRestService.saveTopics(articles.getTopicsTags())){
+            return "Article saved successfully with topics ";
+        }
+        return "could not save data";
+    }
 }
