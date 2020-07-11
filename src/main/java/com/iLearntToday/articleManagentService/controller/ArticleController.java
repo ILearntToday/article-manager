@@ -1,7 +1,7 @@
 package com.iLearntToday.articleManagentService.controller;
 
 import com.iLearntToday.articleManagentService.entity.Article;
-import com.iLearntToday.articleManagentService.entity.ResponseStatus;
+import com.iLearntToday.articleManagentService.entity.ResponseVO;
 import com.iLearntToday.articleManagentService.service.ArticleManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,15 +22,15 @@ public class ArticleController {
 
 
     @RequestMapping(value="/save-all",method = RequestMethod.POST)
-    public ResponseEntity<ResponseStatus> saveAllArticle(@RequestBody List<Article> articles){
+    public ResponseEntity<?> saveAllArticle(@RequestBody List<Article> articles){
 
-        return new ResponseEntity<ResponseStatus>(articleManagementService.saveAllArticle(articles),HttpStatus.OK);
+        return new ResponseEntity<>(articleManagementService.saveAllArticle(articles),HttpStatus.OK);
     }
 
     @RequestMapping(value="/save",method = RequestMethod.POST)
     public ResponseEntity<?> saveAllArticle(@RequestBody Article articles){
 
-        return new ResponseEntity<>(articleManagementService.saveArticle(articles),HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseVO<String>(HttpStatus.OK.value(),articleManagementService.saveArticle(articles)),HttpStatus.OK);
     }
 
 

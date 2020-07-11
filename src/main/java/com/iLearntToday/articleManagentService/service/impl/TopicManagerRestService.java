@@ -1,7 +1,11 @@
 package com.iLearntToday.articleManagentService.service.impl;
 
+import com.iLearntToday.articleManagentService.controller.ArticleController;
+import com.iLearntToday.articleManagentService.entity.ResponseVO;
 import com.iLearntToday.articleManagentService.entity.Topic;
 import io.swagger.models.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,23 +19,28 @@ import java.util.List;
 public class TopicManagerRestService {
     @Autowired
     RestTemplate restTemplate;
-
-    public boolean saveTopics(List<String> topictags){
+    private static final Logger LOG = LoggerFactory.getLogger(TopicManagerRestService.class);
+    public boolean saveTopics(List<String> topictags) {
         List<Topic> topicList = new ArrayList<>();
-        for(String topicName:topictags){
-            topicList.add(new Topic(topicName,new Timestamp(System.currentTimeMillis())));
+        for (String topicName : topictags) {
+            topicList.add(new Topic(topicName, new Timestamp(System.currentTimeMillis())));
         }
-        ResponseEntity<?> response=null;
-        try{
-                 response=  restTemplate.postForEntity("http://topic-manager-service/topic/save-all",topicList,ResponseEntity.class);
+        ResponseEntity<ResponseVO> response = null;
+        try {
+            response = restTemplate.postForEntity("http://topic-manager-service/topic/save-all", topicList, ResponseVO.class);
+            if(response.getStatusCode().value()==200){
+                LOG.debug("Topic successfully saved to data base");
+            }
+            else{
+                LOG.debug("could not save topic to db" ,response.getBody());
+            }
+            return true;
+        } catch (Exception e) {
+
+            System.out.println("Exception occured while connecting topic service "+e);
         }
-        catch (Exception e){
-            System.out.println("Exception occured while connecting topic service ");
-        }
-        System.out.println(restTemplate.getForObject("http://topic-manager-service/topic/test",String.class));
         return false;
     }
-
 
 
 }

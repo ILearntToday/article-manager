@@ -1,7 +1,7 @@
 package com.iLearntToday.articleManagentService.service.impl;
 
 import com.iLearntToday.articleManagentService.entity.Article;
-import com.iLearntToday.articleManagentService.entity.ResponseStatus;
+import com.iLearntToday.articleManagentService.entity.ResponseVO;
 import com.iLearntToday.articleManagentService.repository.ArticleRepository;
 import com.iLearntToday.articleManagentService.service.ArticleManagementService;
 import org.elasticsearch.index.query.*;
@@ -22,10 +22,10 @@ public class ArticleManagementServiceImpl  implements ArticleManagementService {
     TopicManagerRestService topicManagerRestService;
 
     @Override
-    public ResponseStatus saveAllArticle(List<Article> articles) {
+    public ResponseVO saveAllArticle(List<Article> articles) {
         articleRepository.saveAll(articles);
 
-        return new ResponseStatus(200, "Article saved Successfully!");
+        return new ResponseVO(200, "Article saved Successfully!");
     }
 
     @Override
@@ -49,8 +49,12 @@ public class ArticleManagementServiceImpl  implements ArticleManagementService {
     }
 
     @Override
-    public String saveArticle(Article articles) {
-        if(topicManagerRestService.saveTopics(articles.getTopicsTags())){
+    public String saveArticle(Article article) {
+        LOG.debug("saving article to ES "+ article);
+
+        articleRepository.save(article);
+
+        if(topicManagerRestService.saveTopics(article.getTopicsTags())){
             return "Article saved successfully with topics ";
         }
         return "could not save data";
