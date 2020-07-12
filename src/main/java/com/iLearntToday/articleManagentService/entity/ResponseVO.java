@@ -3,13 +3,16 @@ package com.iLearntToday.articleManagentService.entity;
 import lombok.Data;
 
 @Data
-public class ResponseStatus {
+public class ResponseVO<T> {
 
     int responseCode;
-    String message;
+    T body;
 
-    public ResponseStatus(int responseCode, String message) {
+    public ResponseVO() {
+    }
+
+    public ResponseVO(int responseCode, T body) {
         this.responseCode = responseCode;
-        this.message = message;
+        this.body = body;
     }
 }
