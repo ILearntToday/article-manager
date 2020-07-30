@@ -53,8 +53,8 @@ public class ArticleController {
     }
 
     @RequestMapping(value="/search-topics", method=RequestMethod.GET)
-    public ResponseEntity<?> getByTopics(){
-        List<String > topics= new ArrayList<>();
+    public ResponseEntity<?> getByTopics(@RequestParam("listname") String[] topics){
+
         LOG.debug("request to fetch article by user id  "+topics);
         return new ResponseEntity<>(articleManagementService.getArticlesByTopicTags(topics),HttpStatus.OK);
     }
@@ -62,27 +62,5 @@ public class ArticleController {
     @RequestMapping(value="/test",method = RequestMethod.GET)
     public String testAPi(){
         return "Hello From Article service";
-    }
-
-    @RequestMapping(value="/temp",method = RequestMethod.GET)
-    public String test(){
-        RestClient esClient = RestClient.builder(new HttpHost("localhost", 9200, "http")).build();
-        Request request = new Request("POST", "/articles/_search");
-        request.setJsonEntity("{\n" +
-                "  \"query\":{\n" +
-                "      \"match\":{\n" +
-                "        \"id\": \"abcd\"\n" +
-                "      }\n" +
-                "    }\n" +
-                "}");
-
-        try {
-            Response response = esClient.performRequest(request);
-            System.out.println(EntityUtils.toString(response.getEntity()));
-            return response.toString();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }

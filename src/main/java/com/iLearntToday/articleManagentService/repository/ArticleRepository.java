@@ -9,5 +9,7 @@ import java.util.List;
 public interface ArticleRepository  extends ElasticsearchRepository<Article, String> {
     List<Article> findByUserId(String userName);
     List<Article> findByTopicsTags(String topicName);
+    List<Article> findByTopicsTagsIn(List<String> topicName);
+
 }
 
