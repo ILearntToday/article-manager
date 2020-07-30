@@ -10,7 +10,7 @@ public interface ArticleManagementService {
 
     public List<Article> getArticlesByUserName(String userName);
 
-    public List<Article> getArticlesByTopicTags(List<String > topics);
+    public List<Article> getArticlesByTopicTags(String []topics);
 
     public String saveArticle(Article articles);
 }

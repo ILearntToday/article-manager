@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -37,15 +39,11 @@ public class ArticleManagementServiceImpl  implements ArticleManagementService {
     }
 
     @Override
-    public List<Article> getArticlesByTopicTags(List<String> topics) {
-
-        List<Article> result = new ArrayList<>();
-        BoolQueryBuilder qb1 = new BoolQueryBuilder();
-
-        for (String topic : topics) {
-            result.addAll(articleRepository.findByTopicsTags(topic));
-        }
-        return result;
+    public List<Article> getArticlesByTopicTags(String []topics) {
+        List<String> topicList = Arrays.asList(topics);
+        List<Article> listOfArticle = articleRepository.findByTopicsTagsIn(topicList);
+        System.out.println(listOfArticle);
+        return listOfArticle;
     }
 
     @Override

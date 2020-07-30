@@ -1,0 +1,12 @@
+{
+  "query":{
+    "match":{"topicsTags":"digital"}
+  },
+   "sort":[
+   { "numberOfLikes":"desc"}
+  ]
+  ,
+  "size":2,
+  "from":1
+
+}
